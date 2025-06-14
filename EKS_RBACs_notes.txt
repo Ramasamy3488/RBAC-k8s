@@ -35,15 +35,24 @@ aws iam create-user --user-name rbac-user
 aws iam create-access-key --user-name rbac-user
 
 ## We will use these set onther context with using above credentials
-AWS configure.
+AWS configure
+
+kubectl get pods -n rbac-test
 
 ## MAP AN IAM USER TO K8S
 kubectl apply -f .\aws-auth.yaml
+
+export AWS_PROFILE=rbac
+
+
 
 ## Verify newly created user after login AND it should throw below errors
 kubectl get pods -n rbac-test
 
 ## Create a role and role binding from Admin access
+
+export AWS_PROFILE=dev
+
 kubectl apply -f .\rbacuser-role.yaml
 kubectl apply -f .\rbacuser-role-binding.yaml
 
